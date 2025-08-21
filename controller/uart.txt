@@ -1,5 +1,0 @@
-ESP32      Raspberry Pi 5
-=======    ==============
-GPIO16  -> GPIO14 (TXD)
-GPIO17  -> GPIO15 (RXD)
-GND     -> GND

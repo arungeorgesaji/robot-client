@@ -1,4 +1,4 @@
-#include "motorController.h"
+#include "include/motorController.h"
 #include <Arduino.h>
 
 motorController::motorController(int leftPin, int rightPin, int minPulse, int maxPulse) 
