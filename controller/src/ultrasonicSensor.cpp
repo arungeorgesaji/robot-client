@@ -9,20 +9,34 @@ void UltrasonicSensor::init() {
 }
 
 long UltrasonicSensor::getDistance() {
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
+  const int samples = 1;
+  long total = 0;
+  int count = 0;
 
-  long duration = pulseIn(echoPin, HIGH);
-  long distance = duration * 0.017;
+  while (count < samples) {
+    digitalWrite(trigPin, LOW);
+    delay(2);
+    digitalWrite(trigPin, HIGH);
+    delay(10);
+    digitalWrite(trigPin, LOW);
 
-  Serial.println("Distance: " + String(distance) + " cm");
+    long duration = pulseIn(echoPin, HIGH, 30000); 
+    long distance = duration * 0.017; 
 
-  return distance;
+    if (distance > 0) { 
+      total += distance;
+      count++;
+    }
+
+    delay(50); 
+  }
+
+  long averageDistance = total / samples;
+
+  Serial.println("Distance: " + String(averageDistance) + " cm");
+
+  return averageDistance;
 }
-
 DualUltrasonicController::DualUltrasonicController(int leftTrig, int leftEcho,
                                                    int rightTrig, int rightEcho)
   : leftSensor(leftTrig, leftEcho), rightSensor(rightTrig, rightEcho) {}

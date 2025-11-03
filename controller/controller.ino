@@ -2,7 +2,7 @@
 #include "include/motorController.h"
 #include "include/ultrasonicSensor.h"
 
-const char* ssid = "honor";
+const char* ssid = "iBall-Baton";
 const char* password = "";
 
 WiFiServer server(8080);
@@ -17,8 +17,6 @@ void ultrasonicTask(void* pvParameters) {
     Serial.println("Obstacle Status: " + status);
 
     ultrasonic.avoidObstacles(motors);
-
-    vTaskDelay(200 / portTICK_PERIOD_MS); 
   }
 }
 
@@ -41,7 +39,7 @@ void setup() {
   ultrasonic.init();
   motors.calibrateESCs();
   
-  xTaskCreatePinnedToCore(ultrasonicTask, "Ultrasonic Task", 4096, NULL, 1, &ultrasonicTaskHandle, 1);
+  //xTaskCreatePinnedToCore(ultrasonicTask, "Ultrasonic Task", 8096, NULL, 1, &ultrasonicTaskHandle, 1);
   
   Serial.println("ESP32 TCP Motor Controller Ready");
 }
